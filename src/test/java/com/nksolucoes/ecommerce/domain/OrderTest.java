@@ -11,12 +11,23 @@ public class OrderTest {
 
     @Test
     void shouldCalculateTotalCorrectly() {
-        Product p1 = Product.builder().price(new BigDecimal("10.00")).build();
-        Product p2 = Product.builder().price(new BigDecimal("5.50")).build();
+        Product p1 = new Product();
+        p1.setPrice(new BigDecimal("10.00"));
+
+        Product p2 = new Product();
+        p2.setPrice(new BigDecimal("5.50"));
 
         Order order = new Order();
-        OrderItem item1 = OrderItem.builder().product(p1).quantity(2).order(order).build();
-        OrderItem item2 = OrderItem.builder().product(p2).quantity(3).order(order).build();
+
+        OrderItem item1 = new OrderItem();
+        item1.setProduct(p1);
+        item1.setQuantity(2);
+        item1.setOrder(order);
+
+        OrderItem item2 = new OrderItem();
+        item2.setProduct(p2);
+        item2.setQuantity(3);
+        item2.setOrder(order);
 
         order.setItems(List.of(item1, item2));
 
@@ -24,4 +35,3 @@ public class OrderTest {
         assertThat(total).isEqualByComparingTo("36.50");
     }
 }
-
