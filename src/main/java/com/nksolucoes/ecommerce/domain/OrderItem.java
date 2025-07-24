@@ -1,10 +1,17 @@
 package com.nksolucoes.ecommerce.domain;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.UUID;
 
 @Entity
+@Table(name = "order_item")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderItem {
 
     @Id
@@ -19,36 +26,4 @@ public class OrderItem {
 
     @Column(nullable = false)
     private int quantity;
-
-    public UUID getId() {
-        return id;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

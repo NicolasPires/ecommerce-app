@@ -2,6 +2,7 @@ package com.nksolucoes.ecommerce.application.service;
 
 
 import com.nksolucoes.ecommerce.domain.*;
+import com.nksolucoes.ecommerce.domain.enumerations.OrderStatusEnum;
 import com.nksolucoes.ecommerce.infrastructure.repository.OrderRepository;
 import com.nksolucoes.ecommerce.infrastructure.repository.ProductRepository;
 import com.nksolucoes.ecommerce.web.dto.request.OrderRequestDTO;
@@ -37,7 +38,7 @@ public class OrderService {
                     .orElseThrow(() -> new EntityNotFoundException("Product not found"));
 
             if (product.getStockQuantity() < itemDTO.quantity()) {
-                order.setStatus(Order.OrderStatus.CANCELLED);
+                order.setStatus(OrderStatusEnum.CANCELLED);
                 throw new IllegalStateException("Insufficient stock for product: " + product.getName());
             }
 
@@ -60,14 +61,14 @@ public class OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new EntityNotFoundException("Order not found"));
 
-        if (order.getStatus() != Order.OrderStatus.PENDING) {
+        if (order.getStatus() != OrderStatusEnum.PENDING) {
             throw new IllegalStateException("Order already processed.");
         }
 
         for (OrderItem item : order.getItems()) {
             Product product = item.getProduct();
             if (product.getStockQuantity() < item.getQuantity()) {
-                order.setStatus(Order.OrderStatus.CANCELLED);
+                order.setStatus(OrderStatusEnum.CANCELLED);
                 orderRepository.save(order);
                 throw new IllegalStateException("Insufficient stock for product: " + product.getName());
             }
@@ -75,7 +76,7 @@ public class OrderService {
             productRepository.save(product);
         }
 
-        order.setStatus(Order.OrderStatus.PAID);
+        order.setStatus(OrderStatusEnum.PAID);
         orderRepository.save(order);
 
         return mapper.toResponse(order);

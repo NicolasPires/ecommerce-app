@@ -1,6 +1,7 @@
 package com.nksolucoes.ecommerce.web.dto.response;
 
 import com.nksolucoes.ecommerce.domain.Order;
+import com.nksolucoes.ecommerce.domain.enumerations.OrderStatusEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -9,7 +10,7 @@ import java.util.UUID;
 
 public record OrderResponseDTO(
         UUID id,
-        Order.OrderStatus status,
+        OrderStatusEnum status,
         BigDecimal total,
         LocalDateTime createdAt,
         List<OrderItemResponseDTO> items
