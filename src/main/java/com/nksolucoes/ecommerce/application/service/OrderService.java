@@ -87,5 +87,11 @@ public class OrderService {
                 .map(mapper::toResponse)
                 .toList();
     }
+
+    public OrderResponseDTO findById(UUID id) {
+        return orderRepository.findById(id)
+                .map(mapper::toResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Order not found"));
+    }
 }
 

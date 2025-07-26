@@ -26,15 +26,19 @@ public class CurrentUserResolver implements HandlerMethodArgumentResolver, WebMv
                                   ModelAndViewContainer mavContainer,
                                   NativeWebRequest webRequest,
                                   org.springframework.web.bind.support.WebDataBinderFactory binderFactory) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication != null && authentication.getPrincipal() instanceof User user) {
-            return user;
-        }
-        return null;
+        return resolveUserFromSecurityContext();
     }
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(this);
+    }
+
+    public User resolveUserFromSecurityContext() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getPrincipal() instanceof User user) {
+            return user;
+        }
+        return null;
     }
 }

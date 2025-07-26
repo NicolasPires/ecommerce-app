@@ -5,5 +5,5 @@ import com.nksolucoes.ecommerce.web.dto.OrderItemDTO;
 
 import java.util.List;
 
-public record OrderRequestDTO(List<OrderItemDTO> items) {}
+public record OrderRequestDTO(List<OrderItemRequestDTO> items) {}
 

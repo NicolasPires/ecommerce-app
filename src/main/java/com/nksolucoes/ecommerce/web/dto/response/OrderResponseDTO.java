@@ -1,6 +1,5 @@
 package com.nksolucoes.ecommerce.web.dto.response;
 
-import com.nksolucoes.ecommerce.domain.Order;
 import com.nksolucoes.ecommerce.domain.enumerations.OrderStatusEnum;
 
 import java.math.BigDecimal;
